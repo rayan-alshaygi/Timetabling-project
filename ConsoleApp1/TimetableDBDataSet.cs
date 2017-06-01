@@ -21,6 +21,7 @@ namespace ConsoleApp1.TimetableDBDataSetTableAdapters
     {
     }
 
-    public partial class InstructorsTableAdapter {
+    public partial class InstructorsTableAdapter
+    {
     }
 }

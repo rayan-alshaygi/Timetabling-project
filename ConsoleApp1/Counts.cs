@@ -103,11 +103,10 @@ namespace ConsoleApp1
         // Returns reference to list of parsed classes
         //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
         //ORIGINAL LINE: inline const ClassicLinkedList<CourseClass*>& GetCourseClasses() const
-        public LinkedList<CourseClass> GetCourseClasses()
+        public DataTable GetCourseClasses()
         {
             DataTable dt = cc.GetData();
-            List<DataRow> list = dt.AsEnumerable().ToList();
-            return _courseClasses;
+            return dt;
             
         }
        

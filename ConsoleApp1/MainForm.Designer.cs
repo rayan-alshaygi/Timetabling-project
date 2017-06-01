@@ -76,7 +76,7 @@
             // 
             // btAddTeacher
             // 
-            this.btAddTeacher.Location = new System.Drawing.Point(24, 105);
+            this.btAddTeacher.Location = new System.Drawing.Point(24, 94);
             this.btAddTeacher.Name = "btAddTeacher";
             this.btAddTeacher.Size = new System.Drawing.Size(177, 39);
             this.btAddTeacher.TabIndex = 0;
@@ -86,7 +86,7 @@
             // 
             // btAddCourse
             // 
-            this.btAddCourse.Location = new System.Drawing.Point(24, 150);
+            this.btAddCourse.Location = new System.Drawing.Point(24, 145);
             this.btAddCourse.Name = "btAddCourse";
             this.btAddCourse.Size = new System.Drawing.Size(177, 39);
             this.btAddCourse.TabIndex = 1;

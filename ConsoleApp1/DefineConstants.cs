@@ -21,10 +21,10 @@ namespace ConsoleApp1
         public const int IDC_EDIT1 = 1000;
         public const int ID_START = 32771;
         public const int ID_STOP_ALG = 32772;
-        public const int ID_FILE_OPENCONFIGURATION = 32773;
+        public const int ID_FILE_OPENCounts = 32773;
         public const int ID_FILE_START = 32774;
         public const int ID_FILE_STOP = 32775;
-        public const int ID_FILE_OPEN_CONFIGURATION = 32776;
+        public const int ID_FILE_OPEN_Counts = 32776;
         public const int _APS_NEXT_RESOURCE_VALUE = 129;
         public const int _APS_NEXT_COMMAND_VALUE = 32782;
         public const int _APS_NEXT_CONTROL_VALUE = 1001;
