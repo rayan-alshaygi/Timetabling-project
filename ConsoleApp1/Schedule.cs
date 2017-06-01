@@ -9,7 +9,7 @@ namespace ConsoleApp1
 {
     class Schedule
     {
-
+        Counts counts = new Counts();
         // Time-space slots, one entry represent one hour in one classroom
 
         private List<LinkedList<DataRow>> _slots = new List<LinkedList<DataRow>>();
@@ -27,55 +27,29 @@ namespace ConsoleApp1
             // in another class
             // number of time-space slots
             int size = (int)_slots.Count;
+            DataTable rooms = counts.GetRooms();
+
             // place classes at random position
             DataTable c = Counts.GetInstance().GetCourseClasses();
-            foreach (DataRow row in c.Rows)
+           
+            int nr = Counts.GetInstance().GetNumberOfRooms();
+            //variable needed in searching for instructors and curriculums over lap
+            int daySize = DefineConstants.DAY_HOURS * nr;
+            foreach (DataRow courseRow in c.Rows)
             {
                 // determine random position of class
-                int nr = Counts.GetInstance().GetNumberOfRooms();
-                int dur = Int32.Parse(row["duration"].ToString());
+                int dur = Int32.Parse(courseRow["duration"].ToString());
+                restart:
                 int day = RandomNumbers.NextNumber() % DefineConstants.DAYS_NUM;
                 int room = RandomNumbers.NextNumber() % nr;
                 int time = RandomNumbers.NextNumber() % (DefineConstants.DAY_HOURS + 1 - dur);
                 int pos = day * nr * DefineConstants.DAY_HOURS + room * DefineConstants.DAY_HOURS + time;
 
-                // fill time-space slots, for each hour of class
-                for (int i = dur - 1; i >= 0; i--)
-                {
-                    _slots[pos + i].AddLast(row);
-                    //_slots.at(pos + i).push_back(*it);
-
-                }
-            }
-        }
-
-       /* public void CalculateFitness()
-        {
-            // chromosome's score
-            int score = 0;
-
-            int numberOfRooms = Counts.GetInstance().GetNumberOfRooms();
-            int daySize = DefineConstants.DAY_HOURS * numberOfRooms;
-
-            int ci = 0;
-
-            // check criterias and calculate scores for each class in schedule
-            for (hash_map<CourseClass*, int>.const_iterator it = _classes.begin(); it != _classes.end(); ++it, ci += 5)
-            {
-                // coordinate of time-space slot
-                int p = it.second;
-                int day = p / daySize;
-                int time = p % daySize;
-                int room = time / DefineConstants.DAY_HOURS;
-                time = time % DefineConstants.DAY_HOURS;
-
-                int dur = it.first.GetDuration();
-
                 // check for room overlapping of classes
                 bool ro = false;
                 for (int i = dur - 1; i >= 0; i--)
                 {
-                    if (_slots[p + i].Count > 1)
+                    if (_slots[pos + i].Count > 1)
                     {
                         ro = true;
                         break;
@@ -85,86 +59,55 @@ namespace ConsoleApp1
                 // on room overlaping
                 if (!ro)
                 {
-                    score++;
+                    goto restart;
                 }
-
-                _criteria[ci + 0] = !ro;
-
-                CourseClass cc = it.first;
-                Room r = Counts.GetInstance().GetRoomById(room);
                 // does current room have enough seats
-                _criteria[ci + 1] = r.GetNumberOfSeats() >= cc.GetNumberOfSeats();
-                if (_criteria[ci + 1])
-                {
-                    score++;
-                }
+                int roomSeats =Int32.Parse(rooms.Rows[room]["numberofseats"].ToString());
+                int classSeats= Int32.Parse(courseRow["numberofstudents"].ToString());
+                if (roomSeats < classSeats)
+                    goto restart;
 
                 // does current room have computers if they are required
-                _criteria[ci + 2] = !cc.IsLabRequired() || (cc.IsLabRequired() && r.IsLab());
-                if (_criteria[ci + 2])
-                {
-                    score++;
-                }
+                Boolean roomLab = Boolean.Parse(rooms.Rows[room]["lab"].ToString());
+                Boolean classLab = Boolean.Parse(courseRow["lab"].ToString());
+                if (classLab && !roomLab)
+                    goto restart;
 
-                bool po = false;
-                bool go = false;
                 // check overlapping of classes for professors and student groups
-                for (int i = numberOfRooms, t = day * daySize + time; i > 0; i--, t += DefineConstants.DAY_HOURS)
+                for (int i = nr, t = day * daySize + time; i > 0; i--, t += DefineConstants.DAY_HOURS)
                 {
                     // for each hour of class
-                    for (int i = dur - 1; i >= 0; i--)
+                    for (int j = dur - 1; j >= 0; j--)
                     {
                         // check for overlapping with other classes at same time
-                        LinkedList<CourseClass> cl = _slots[t + i];
-                        for (LinkedList<CourseClass>.Enumerator it = cl.GetEnumerator(); it.MoveNext();)
+                        LinkedList<DataRow> cl = _slots[t + j];
+                        //for (LinkedList<CourseClass>.Enumerator it = cl.GetEnumerator(); it.MoveNext();)
+                        foreach (DataRow row in c.Rows)
                         {
-                            if (cc != it.Current)
+                            if (courseRow != row)
                             {
-                                // professor overlaps?
-                                //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-                                if (!po && cc.ProfessorOverlaps(it.Current))
-                                {
-                                    po = true;
-                                }
+                                // professor overlaps
+                                if (courseRow["instructorId"] == row["instructorId"])
+                                    goto restart;
 
                                 // student group overlaps?
-                                //C++ TO C# CONVERTER TODO TASK: Iterators are only converted within the context of 'while' and 'for' loops:
-                                if (!go && cc.GroupsOverlap(it.Current))
-                                {
-                                    go = true;
-                                }
-
-                                // both type of overlapping? no need to check more
-                                if (po && go)
-                                {
-                                    goto total_overlap;
-                                }
+                                if (counts.GetCourseCurriculums(Int32.Parse( courseRow["Id"].ToString())) == counts.GetCourseCurriculums(Int32.Parse(row["Id"].ToString())))
+                                    goto restart;
                             }
                         }
                     }
                 }
 
-                total_overlap:
-
-                // professors have no overlaping classes?
-                if (!po)
+               
+                // fill time-space slots, for each hour of class
+                for (int i = dur - 1; i >= 0; i--)
                 {
-                    score++;
-                }
-                _criteria[ci + 3] = !po;
+                    _slots[pos + i].AddLast(courseRow);
+                    //_slots.at(pos + i).push_back(*it);
 
-                // student groups has no overlaping classes?
-                if (!go)
-                {
-                    score++;
                 }
-                _criteria[ci + 4] = !go;
             }
-
-            // calculate fitess value based on score
-            _fitness = (float)score / (Counts.GetInstance().GetNumberOfCourseClasses() * DefineConstants.DAYS_NUM);
         }
-        */
 
         public Dictionary<CourseClass, int> GetClasses()
         {

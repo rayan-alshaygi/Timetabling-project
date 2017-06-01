@@ -80,7 +80,10 @@ namespace ConsoleApp1
         //    return it != _courses.end() ? it.second : null;
         //}
 
-        
+        public DataTable GetCourseCurriculums(int id)
+        {
+            return cc.GetCourseCurriculums(id);
+        }
         public int GetNumberOfCourses()
         {
             return (int) cc.Count();
@@ -99,7 +102,10 @@ namespace ConsoleApp1
         public int GetNumberOfRooms() { 
             return (int) room.Count();
         }
-
+        public DataTable GetRooms()
+        {
+            return room.GetData();
+        }
         // Returns reference to list of parsed classes
         //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
         //ORIGINAL LINE: inline const ClassicLinkedList<CourseClass*>& GetCourseClasses() const
