@@ -15,6 +15,7 @@ namespace ConsoleApp1
         RoomsTableAdapter room = new RoomsTableAdapter();
         CourseClassTableAdapter cc = new CourseClassTableAdapter();
         CoursesTableAdapter courses = new CoursesTableAdapter();
+    
 
         // Global instance
         private static Counts _instance = new Counts();
@@ -64,8 +65,7 @@ namespace ConsoleApp1
         }
 
         // Returns number of parsed student groups
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline int GetNumberOfStudentGroups() const
+        
         public int GetNumberOfCurriculums()
         {
 
@@ -80,8 +80,7 @@ namespace ConsoleApp1
         //    return it != _courses.end() ? it.second : null;
         //}
 
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline int GetNumberOfCourses() const
+        
         public int GetNumberOfCourses()
         {
             return (int) cc.Count();
@@ -96,8 +95,7 @@ namespace ConsoleApp1
         //}
 
         // Returns number of parsed rooms
-        //C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
-        //ORIGINAL LINE: inline int GetNumberOfRooms() const
+        
         public int GetNumberOfRooms() { 
             return (int) room.Count();
         }

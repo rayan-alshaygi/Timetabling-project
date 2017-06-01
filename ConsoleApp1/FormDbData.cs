@@ -34,8 +34,9 @@ namespace ConsoleApp1
 
         public DataTable ComboInstructorName()
         {
-            DataTable dt = ins.GetDataName();
-            return dt;
+            TimetableDBDataSet.InstructorsDataTable i = ins.GetData();
+            //DataTable dt = ins.GetDataName();
+            return i;
         }
         public DataTable ComboCourseName()
         {

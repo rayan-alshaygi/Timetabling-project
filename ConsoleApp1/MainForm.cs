@@ -46,7 +46,7 @@ namespace ConsoleApp1
             {
                 for (int index = 0; index < dataGridView1.Rows.Count - 1; index++)
                 {
-                    cbIntructorName.Items.Add(dataGridView1.Rows[index].Cells[0].Value);
+                    cbIntructorName.Items.Add(dataGridView1.Rows[index].Cells[1].Value);
                 }
             }
         }
