@@ -20,7 +20,8 @@ namespace ConsoleApp1
         public int InsertInstructor(string InstructorName)
         {
             int val;
-            return val = ins.InsertInstructor(InstructorName);
+            return val = ins.Insert(InstructorName);
+           // return val = ins.InsertInstructor(InstructorName);
         }
         public void InsertCourse(string name, int ns, int duration, bool lab, String Instructor, String Course)
         {
