@@ -81,7 +81,6 @@
             this.tableAdapterManager.CurriculumClassesTableAdapter = null;
             this.tableAdapterManager.CurriculumDevisionsTableAdapter = null;
             this.tableAdapterManager.CurriculumTableAdapter = null;
-            this.tableAdapterManager.InstructorClassesTableAdapter = null;
             this.tableAdapterManager.InstructorsTableAdapter = this.instructorsTableAdapter;
             this.tableAdapterManager.ITTableAdapter = null;
             this.tableAdapterManager.MathCSTableAdapter = null;

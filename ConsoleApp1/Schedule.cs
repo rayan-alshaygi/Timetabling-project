@@ -4,11 +4,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleApp1.TimetableDBDataSetTableAdapters;
 
 namespace ConsoleApp1
 {
     class Schedule
-    {
+    { 
+        ScheduleTableAdapter sched = new ScheduleTableAdapter();
         Counts counts = new Counts();
         // Time-space slots, one entry represent one hour in one classroom
 
@@ -106,6 +108,12 @@ namespace ConsoleApp1
                     //_slots.at(pos + i).push_back(*it);
 
                 }
+                //insert it into the schedule class
+                int classId = Int32.Parse(courseRow["id"].ToString());
+                int roomId = Int32.Parse(rooms.Rows[room]["Id"].ToString());
+                //0 = sunday and so on
+                String d = ((DayOfWeek)day).ToString(); ;
+                sched.Insert(classId,d, time, roomId);
             }
         }
 
