@@ -75,10 +75,8 @@
             // 
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager.CourseClassTableAdapter = null;
-            this.tableAdapterManager.CourseClassYDTableAdapter = null;
             this.tableAdapterManager.CoursesTableAdapter = null;
             this.tableAdapterManager.CSTableAdapter = null;
-            this.tableAdapterManager.CurriculumClassesTableAdapter = null;
             this.tableAdapterManager.CurriculumDevisionsTableAdapter = null;
             this.tableAdapterManager.CurriculumTableAdapter = null;
             this.tableAdapterManager.InstructorsTableAdapter = this.instructorsTableAdapter;

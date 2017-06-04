@@ -9,6 +9,10 @@
 
 namespace ConsoleApp1.TimetableDBDataSetTableAdapters
 {
+    partial class CurriculumDevisionsTableAdapter
+    {
+    }
+
     partial class CoursesTableAdapter
     {
     }

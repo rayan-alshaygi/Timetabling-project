@@ -93,8 +93,8 @@ namespace ConsoleApp1
                                     goto restart;
 
                                 // student group overlaps?
-                                if (counts.GetCourseCurriculums(Int32.Parse( courseRow["Id"].ToString())) == counts.GetCourseCurriculums(Int32.Parse(row["Id"].ToString())))
-                                    goto restart;
+                              //  if (counts.GetCourseCurriculums(Int32.Parse( courseRow["Id"].ToString())) == counts.GetCourseCurriculums(Int32.Parse(row["Id"].ToString())))
+                                //    goto restart;
                             }
                         }
                     }
