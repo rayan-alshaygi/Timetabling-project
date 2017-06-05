@@ -34,7 +34,10 @@ namespace ConsoleApp1
         public int InsertInstructor(string InstructorName)
         {
             int val;
-            return val = insTA.Insert(InstructorName);
+            TimetableDBDataSetTrialTableAdapters.InstructorsTableAdapter i = new TimetableDBDataSetTrialTableAdapters.InstructorsTableAdapter();
+            return val= i.Insert(InstructorName);
+            
+            //return val = Int32.Parse(insTA.InsertInstructor(InstructorName).ToString());
            // return val = ins.InsertInstructor(InstructorName);
         }
         public int getInstructorId(string name)
@@ -205,13 +208,13 @@ namespace ConsoleApp1
             return dt;
         }
 
-        public int insertdivisionsize(string division, int year, int size)
+        public  int insertdivisionsize(string division, int year, int size)
         {
             int val=0;
             switch (division.ToLower())
             {
                 case "cs":
-                    { val = Int32.Parse( cs.InsertCS(year, size).ToString()); }
+                    { val =  cs.InsertCSsize(year, size); }
                     break;
                 case "math":
                     { val = Int32.Parse(m.InsertMathsize(year, size).ToString()); }
